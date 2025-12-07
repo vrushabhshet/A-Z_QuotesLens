@@ -11,11 +11,12 @@
 ### Project Screenshots
 
 
+
 #### Homepage
-![Homepage](https://github.com/vrushabhshet/A-Z_QuotesLens/raw/main/WebCrawler/Images/homepage.png)
+<img src="https://github.com/vrushabhshet/A-Z_QuotesLens/raw/main/A-Z_QuotesLens/WebCrawler/Images/homepage.png" width="600"/>
 
 #### Search Results
-![Search Results](https://github.com/vrushabhshet/A-Z_QuotesLens/raw/main/WebCrawler/Images/search_results.png)
+<img src="https://github.com/vrushabhshet/A-Z_QuotesLens/raw/main/A-Z_QuotesLens/WebCrawler/Images/search_results.png" width="600"/>
 
 This project is a modular web-based search engine consisting of three main components:
  - **Crawler**: Scrapy-based spider for collecting quotes from azquotes.com.
