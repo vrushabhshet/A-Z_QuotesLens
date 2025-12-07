@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A-Z  | QuotesLens</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset & Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #8A2BE2;
+            --primary-dark: #6a1cb0;
+            --primary-light: #9a3bf2;
+            --accent: #00dbde;
+            --bg-dark: #0f0f0f;
+            --card-bg: #181818;
+            --text: #f0f0f0;
+            --text-muted: #b0b0b0;
+            --border: #2a2a2a;
+            --success: #00c896;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark), #1a1a1a);
+            color: var(--text);
+            min-height: 100vh;
+            padding-bottom: 50px;
+            line-height: 1.6;
+        }
+
+        /* Navbar */
+        nav {
+            width: 100%;
+            padding: 16px 50px;
+            background: rgba(10, 10, 10, 0.92);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border);
+        }
+
+        nav h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        nav .logo {
+            background: linear-gradient(90deg, var(--accent), #fc00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+        }
+
+        /* Main */
+        main {
+            padding: 50px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Search Form */
+        #queryForm {
+            width: 100%;
+            max-width: 680px;
+            background: rgba(25, 25, 25, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 36px 40px;
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.3),
+                0 0 0 1px var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        #queryForm:hover {
+            transform: translateY(-4px);
+            box-shadow:
+                0 14px 40px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(138, 43, 226, 0.3);
+        }
+
+        #queryForm label {
+            font-weight: 600;
+            font-size: 1.25rem;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #queryForm label i {
+            color: var(--accent);
+        }
+
+        #queryForm input[type="text"] {
+            width: 100%;
+            padding: 16px 22px;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            outline: none;
+            font-size: 1.05rem;
+            background: rgba(35, 35, 35, 0.7);
+            color: var(--text);
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        #queryForm input[type="text"]:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.25);
+        }
+
+        #queryForm button {
+            padding: 16px 0;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(120deg, var(--primary), var(--primary-dark));
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(138, 43, 226, 0.35);
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.5px;
+        }
+
+        #queryForm button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(138, 43, 226, 0.5);
+            background: linear-gradient(120deg, var(--primary-light), var(--primary));
+        }
+
+        #queryForm button:active {
+            transform: translateY(0);
+        }
+
+        /* Results */
+        #resultContainer {
+            width: 100%;
+            max-width: 1000px;
+            margin-top: 60px;
+        }
+
+        #resultContainer h2 {
+            text-align: center;
+            font-size: 2.1rem;
+            background: linear-gradient(90deg, var(--accent), #fc00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 32px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        #resultList {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 32px;
+            list-style: none;
+        }
+
+        #resultList li {
+            background: var(--card-bg);
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow:
+                0 6px 20px rgba(0, 0, 0, 0.25),
+                0 0 0 1px var(--border);
+            transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #resultList li::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+            opacity: 0.7;
+        }
+
+        #resultList li:hover {
+            transform: translateY(-6px);
+            box-shadow:
+                0 12px 30px rgba(0, 0, 0, 0.35),
+                0 0 0 1px rgba(138, 43, 226, 0.4);
+            border-color: rgba(138, 43, 226, 0.5);
+        }
+
+        #resultList li p {
+            font-size: 1.02rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+
+        #resultList li p strong {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Quote Text */
+        #resultList li p.quote-text {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.25rem;
+            color: var(--text);
+            line-height: 1.5;
+            position: relative;
+            padding-left: 28px;
+            margin: 18px 0;
+        }
+
+        #resultList li p.quote-text::before {
+            content: '"';
+            position: absolute;
+            left: 0;
+            top: -8px;
+            font-size: 4rem;
+            color: var(--primary);
+            opacity: 0.12;
+            font-family: serif;
+            line-height: 1;
+        }
+
+        /* Tags */
+        .tag-badge {
+            display: inline-block;
+            background: linear-gradient(120deg, var(--primary-dark), var(--primary));
+            color: white;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.82rem;
+            margin: 0 6px 6px 0;
+            font-weight: 600;
+            transition: all 0.25s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .tag-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(138, 43, 226, 0.4);
+        }
+
+        /* Similarity Score */
+        .similarity-score {
+            background: rgba(138, 43, 226, 0.15);
+            border: 1px solid var(--primary);
+            border-radius: 10px;
+            padding: 7px 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+            color: var(--accent);
+            margin-top: 14px;
+            font-size: 0.95rem;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            grid-column: 1 / -1;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 24px;
+            color: #333;
+            opacity: 0.6;
+        }
+
+        /* Loading State (optional) */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 14px 24px;
+            }
+            nav h1 {
+                font-size: 1.5rem;
+            }
+            #queryForm {
+                padding: 28px 24px;
+            }
+            #resultContainer h2 {
+                font-size: 1.8rem;
+            }
+            #resultList {
+                grid-template-columns: 1fr;
+                gap: 26px;
+            }
+            #resultList li {
+                padding: 24px;
+            }
+            #resultList li p.quote-text {
+                font-size: 1.15rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav h1 {
+                font-size: 1.4rem;
+            }
+            #queryForm {
+                padding: 22px 18px;
+            }
+            #queryForm input[type="text"] {
+                padding: 14px 18px;
+                font-size: 1rem;
+            }
+            #queryForm button {
+                padding: 14px 0;
+                font-size: 1.05rem;
+            }
+            #resultList li p.quote-text::before {
+                font-size: 3.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <h1>A-Z<span class="logo"> QuotesLens</span></h1>
+    </nav>
+
+    <main>
+        <form id="queryForm" autocomplete="off">
+            <label for="query"><i class="fas fa-search"></i> Search wisdom, quotes, or insights:</label>
+            <input type="text" id="query" name="query" placeholder="Try: love, strategy, or 'never give up'..." autofocus>
+            <button type="submit">
+                <i class="fas fa-search"></i> Search Quotes
+            </button>
+        </form>
+
+        <div id="resultContainer">
+            <h2><i class="fas fa-quote-left"></i> Search Results</h2>
+            <ul id="resultList">
+                <div class="empty-state">
+                    <i class="fas fa-magnifying-glass"></i>
+                    <p>Type a word or phrase to discover timeless quotes</p>
+                </div>
+            </ul>
+        </div>
+    </main>
+
+    <script>
+        function showAlert(message) {
+            const alertDiv = document.createElement('div');
+            alertDiv.innerHTML = `
+                <div style="position: fixed; top: 20px; right: 20px; background: rgba(220, 53, 69, 0.95); color: white; padding: 14px 22px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 1000; font-weight: 600; font-family: 'Inter', sans-serif; display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-exclamation-circle"></i> ${message}
+                </div>
+            `;
+            document.body.appendChild(alertDiv);
+            setTimeout(() => {
+                document.body.removeChild(alertDiv);
+            }, 2800);
+        }
+
+        function displayResults(results) {
+    const resultList = document.getElementById("resultList");
+    if (!Array.isArray(results) || results.length === 0) {
+        resultList.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-quote-right"></i>
+                <p>No quotes found. Try a different word or phrase.</p>
+            </div>
+        `;
+        return;
+    }
+
+    resultList.innerHTML = "";
+    results.forEach(result => {
+        const tagsHTML = (result.labels ?? [])
+            .map(tag => `<span class="tag-badge">${tag}</span>`)
+            .join('');
+
+        const score = result.similarity;
+        const scoreDisplay = score !== null && score !== undefined
+            ? `<div class="similarity-score">
+                    <i class="fas fa-chart-line"></i> ${score.toFixed(4)}
+               </div>`
+            : '';
+
+        const listItem = document.createElement("li");
+        listItem.innerHTML = `
+            <p><strong>Author:</strong> ${result.writer || "Anonymous"}</p>
+            <p class="quote-text">${result.content || ""}</p>
+            <div style="margin-top: 16px;">${tagsHTML}</div>
+            ${scoreDisplay}
+        `;
+        resultList.appendChild(listItem);
+    });
+}
+
+
+        document.getElementById("queryForm").addEventListener("submit", async function (e) {
+            e.preventDefault();
+            const queryInput = document.getElementById("query");
+            const query = queryInput.value.trim();
+
+            if (!query) {
+                showAlert("Please enter a search query.");
+                return;
+            }
+
+            // Optional: show loading state
+            const resultList = document.getElementById("resultList");
+            resultList.innerHTML = `<div class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Searching...</p></div>`;
+
+            try {
+                const response = await fetch('/query', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ query: query, top_k: 5, tag_filter: [] })
+                });
+
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                const results = await response.json();
+                if (results.error) {
+                    showAlert(results.error);
+                    return;
+                }
+                displayResults(results);
+
+            } catch (error) {
+                console.error("Search error:", error);
+                showAlert("Search failed. Please try again.");
+                // Restore empty state
+                resultList.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-bolt"></i>
+                        <p>Oops! Something went wrong.</p>
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
