@@ -5,7 +5,16 @@
 #### CWID: A20560742
 
 
+
 ## Web Based Search Engine
+
+### Project Screenshots
+
+#### Homepage
+![Homepage](WebCrawler/Images/homepage.png)
+
+#### Search Results
+![Search Results](WebCrawler/Images/search_results.png)
 
 This project is a modular web-based search engine consisting of three main components:
  - **Crawler**: Scrapy-based spider for collecting quotes from azquotes.com.
