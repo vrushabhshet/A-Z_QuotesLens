@@ -297,17 +297,10 @@ Flask-based Query Processor:
 
 #### 1. Main Data Source and Tutorials
 
-- **AzQuotes.com** — All quotes and data for this project were collected from [azquotes.com/top_quotes.html](https://www.azquotes.com/top_quotes.html) using a custom Scrapy spider.
-- **NeuralNine.** "Crawling using Scrapy," YouTube video, NeuralNine, https://youtu.be/m_3gjHGxIJc?si=F4v2tKm7kzhbyBXN
-
-#### 2. AI Tools Used
-
-- ChatGPT (https://chat.openai.com/)
-- GitHub Copilot (https://github.com/features/copilot)
-- Gemini (https://gemini.google.com/app)
-- Perplexity (https://www.perplexity.ai/)
-
-#### 3. Flask Learning Resource
-
-- freecodecamp.org, "Flask Course - Python web application development", YouTube video, https://youtu.be/Qr4QMBUPxWo?si=H-vWwj3BeSmJrt_a
+1. AZ Quotes. 2025. “Top Quotes.” Accessed December 7, 2025. https://www.azquotes.com/top_quotes.html.
+2. Grinberg, Miguel. 2018. Flask Web Development: Developing Web Applications with Python. 2nd ed. Sebastopol, CA: O’Reilly Media.
+3. Manning, Christopher D., Prabhakar Raghavan, and Hinrich Schütze. 2008. Introduction to Information Retrieval. Cambridge: Cambridge University Press.
+4. Mitchell, Ryan. 2018. Web Scraping with Python: Collecting More Data from the Modern Web. 2nd ed. Sebastopol, CA: O’Reilly Media.
+5. NeuralNine. 2023. “Crawling using Scrapy.” YouTube video, 14:27. November 12, 2023. https://youtu.be/m_3gjHGxIJc?si=F4v2tKm7kzhbyBXN.
+6. freeCodeCamp.org. 2023. “Flask Course – Python Web Application Development.” YouTube video, 4:21:33. March 15, 2023. https://youtu.be/Qr4QMBUPxWo?si=H-vWwj3BeSmJrt_a.
 
